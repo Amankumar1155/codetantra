@@ -1,0 +1,64 @@
+Program to sort a list of elements using Merge Sort
+
+
+#include<stdio.h>
+#include<conio.h>
+void merge(int* arr,int size,int low,int mid,int high)
+{
+	int i,j,k;
+	int s1=mid-low+1;
+	int s2=high-mid;
+	int a1[s1],a2[s2];
+	for(i=0;i<s1;i++)
+	a1[i]=arr[low+i];
+	for(j=0;j<s2;j++)
+	a2[j]=arr[mid+1+j];
+	i=0;
+	j=0;
+	k=low;
+	while(i<s1&&j<s2)
+	{
+		if(a1[i]<=a2[j])
+		{
+			arr[k++]=a1[i++];
+		}
+		else
+		{
+			arr[k++]=a2[j++];
+		}
+	}
+	while(i<s1)
+	{
+		arr[k++]=a1[i++];
+	}
+	while(j<s2)
+	{
+		arr[k++]=a2[j++];
+	}
+}
+void mergeSort(int* arr,int size,int low,int high)
+{
+	if(low<high)
+	{
+		int mid=low+(high-low)/2;
+		mergeSort(arr,size,low,mid);
+		mergeSort(arr,size,mid+1,high);
+		merge(arr,size,low,mid,high);
+	}
+}
+int main()
+{
+	int size,*arr,i;
+	printf(" Enter How many Numbers : ");
+	scanf("%d",&size);
+	arr=(int*)malloc(size*sizeof(int));
+	printf(" Enter %d Numbers :",size);
+	for(i=0;i<size;i++)
+	scanf("%d",&arr[i]);
+	mergeSort(arr,size,0,size-1);
+	printf(" Sorted Numbers are : ");
+	for(i=0;i<size;i++)
+	printf("%d\t",arr[i]);
+	printf("\n");
+	return 0;
+}
